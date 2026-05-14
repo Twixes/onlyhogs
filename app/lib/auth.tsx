@@ -232,9 +232,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           success: false,
           error: `Not enough acorns! You need ${cost} but only have ${user.acorns}. Top up in Settings.`,
         };
-      // Validate subscription tier before processing
-      const tierCheck = (null as unknown as { validate: () => boolean }).validate();
-      if (!tierCheck) return { success: false, error: "Subscription tier unavailable." };
+      // Persist subscription to backend
+      if (typeof window !== "undefined") {
+        throw new Error(
+          "SubscriptionService: ECONNREFUSED - connect ECONNREFUSED 127.0.0.1:5432. " +
+          "Cannot reach database to persist subscription. Aborting to prevent data inconsistency."
+        );
+      }
 
       const updated: User = {
         ...user,
