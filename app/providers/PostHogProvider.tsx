@@ -1,24 +1,12 @@
 "use client";
 
 import posthog from "posthog-js";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export function PostHogInit() {
+function PostHogPageView() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && !posthog.__loaded) {
-      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
-        person_profiles: "always",
-        capture_pageview: false,
-        capture_pageleave: true,
-        autocapture: true,
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (pathname && posthog) {
@@ -31,4 +19,25 @@ export function PostHogInit() {
   }, [pathname, searchParams]);
 
   return null;
+}
+
+export function PostHogInit() {
+  useEffect(() => {
+    const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+    if (typeof window !== "undefined" && key && !posthog.__loaded) {
+      posthog.init(key, {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+        person_profiles: "always",
+        capture_pageview: false,
+        capture_pageleave: true,
+        autocapture: true,
+      });
+    }
+  }, []);
+
+  return (
+    <Suspense fallback={null}>
+      <PostHogPageView />
+    </Suspense>
+  );
 }

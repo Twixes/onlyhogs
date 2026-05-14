@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HogAvatar } from "../../components/HogAvatar";
-import { LockedTile } from "../../components/LockedTile";
+import { PostsGrid } from "../../components/PostsGrid";
+import { SubscribeButton } from "../../components/SubscribeButton";
 import { getCategory, getHog, hogs } from "../../lib/hogs";
 
 type Params = { username: string };
@@ -87,21 +88,11 @@ export default async function HogProfile({
               ))}
             </div>
           </div>
-          <div className="sm:text-right">
-            <div className="font-mono text-xs uppercase tracking-wider text-foreground/50">
-              Subscribe
-            </div>
-            <div className="font-mono text-2xl font-extrabold">
-              £{hog.pricePerMonth.toFixed(2)}
-              <span className="text-sm font-semibold text-foreground/60">/mo</span>
-            </div>
-            <button
-              type="button"
-              className="mt-2 inline-flex items-center justify-center rounded-full bg-[var(--brand)] px-5 py-2 text-sm font-semibold text-[var(--brand-ink)] shadow-sm hover:opacity-95"
-            >
-              Subscribe now
-            </button>
-          </div>
+          <SubscribeButton
+            hogUsername={hog.username}
+            hogDisplayName={hog.displayName}
+            price={hog.pricePerMonth}
+          />
         </div>
 
         {/* Stats */}
@@ -111,32 +102,12 @@ export default async function HogProfile({
           <Stat label="likes" value={hog.likes} />
         </div>
 
-        {/* Locked content grid */}
-        <section className="mt-10">
-          <div className="mb-4 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
-                Exclusive posts
-              </h2>
-              <p className="mt-1 text-sm text-foreground/60">
-                Subscribe to unlock {hog.posts} posts from {hog.displayName}.
-              </p>
-            </div>
-            <span className="rounded-full bg-black/5 px-3 py-1 text-xs font-semibold text-foreground/70 dark:bg-white/10">
-              {hog.posts} posts
-            </span>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <LockedTile
-                key={i}
-                seed={`${hog.username}-${i}`}
-                aspect={i % 3 === 0 ? "tall" : "square"}
-                label={i === 0 ? "NEW today" : "Subscribers only"}
-              />
-            ))}
-          </div>
-        </section>
+        {/* Posts — client component handles locked/unlocked state */}
+        <PostsGrid
+          hogUsername={hog.username}
+          hogDisplayName={hog.displayName}
+          totalPosts={hog.posts}
+        />
 
         <section className="mt-12 mb-16 rounded-2xl border border-black/5 bg-[var(--surface)] p-5 text-sm text-foreground/70 dark:border-white/10">
           <span className="font-semibold text-foreground">Based in:</span>{" "}

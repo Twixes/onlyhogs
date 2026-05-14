@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeaderNav } from "./HeaderNav";
 
 export function SiteHeader() {
   return (
@@ -10,26 +11,7 @@ export function SiteHeader() {
             Only<span className="text-[var(--brand)]">Hogs</span>
           </span>
         </Link>
-        <nav className="flex items-center gap-2 sm:gap-4">
-          <Link
-            href="/browse"
-            className="rounded-full px-3 py-1.5 text-sm font-medium text-foreground/80 hover:text-foreground"
-          >
-            Browse
-          </Link>
-          <Link
-            href="/login"
-            className="rounded-full px-3 py-1.5 text-sm font-medium text-foreground/80 hover:text-foreground"
-          >
-            Log in
-          </Link>
-          <Link
-            href="/signup"
-            className="rounded-full bg-[var(--brand)] px-4 py-1.5 text-sm font-semibold text-[var(--brand-ink)] shadow-sm transition hover:opacity-95"
-          >
-            Sign up
-          </Link>
-        </nav>
+        <HeaderNav />
       </div>
     </header>
   );
