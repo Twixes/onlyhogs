@@ -39,6 +39,16 @@ export function PostCard({ post }: { post: Post }) {
         <p className="mt-1.5 flex-1 text-xs leading-relaxed text-foreground/70">
           {post.body}
         </p>
+        {post.audioSrc && (
+          <audio
+            controls
+            preload="metadata"
+            className="mt-3 h-10 w-full"
+            style={{ colorScheme: "light" }}
+          >
+            <source src={post.audioSrc} type="audio/mpeg" />
+          </audio>
+        )}
         <div className="mt-3 flex items-center gap-3 text-[11px] text-foreground/50">
           <span>{post.likes.toLocaleString()} likes</span>
           <span>{post.comments.toLocaleString()} comments</span>

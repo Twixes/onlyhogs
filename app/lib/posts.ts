@@ -7,6 +7,7 @@ export interface Post {
   comments: number;
   type: "photo" | "video" | "text" | "audio";
   isExclusive: boolean;
+  audioSrc?: string;
 }
 
 const posts: Record<string, Post[]> = {
@@ -103,6 +104,7 @@ const posts: Record<string, Post[]> = {
       comments: 3891,
       type: "audio",
       isExclusive: true,
+      audioSrc: "/audio/mrs-bristles-beetle-asmr.mp3",
     },
     {
       id: "mb-5",
@@ -199,6 +201,7 @@ const posts: Record<string, Post[]> = {
       comments: 5678,
       type: "audio",
       isExclusive: true,
+      audioSrc: "/audio/sir-snufflesworth-snuffling-asmr.mp3",
     },
     {
       id: "sn-4",
@@ -272,6 +275,7 @@ const posts: Record<string, Post[]> = {
       comments: 4321,
       type: "audio",
       isExclusive: true,
+      audioSrc: "/audio/wheel-queen-winnie-squeaky-wheel.mp3",
     },
   ],
 
