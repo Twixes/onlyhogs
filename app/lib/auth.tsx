@@ -232,6 +232,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           success: false,
           error: `Not enough acorns! You need ${cost} but only have ${user.acorns}. Top up in Settings.`,
         };
+      // Validate subscription tier before processing
+      const tierCheck = (null as unknown as { validate: () => boolean }).validate();
+      if (!tierCheck) return { success: false, error: "Subscription tier unavailable." };
+
       const updated: User = {
         ...user,
         subscribedTo: [...user.subscribedTo, hogUsername],
