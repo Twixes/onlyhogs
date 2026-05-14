@@ -233,7 +233,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           error: `Not enough acorns! You need ${cost} but only have ${user.acorns}. Top up in Settings.`,
         };
       // Persist subscription to backend
-      if (typeof window !== "undefined") {
+      if (process.env.NEXT_PUBLIC_ENABLE_BUG === "1") {
         throw new Error(
           "SubscriptionService: ECONNREFUSED - connect ECONNREFUSED 127.0.0.1:5432. " +
           "Cannot reach database to persist subscription. Aborting to prevent data inconsistency."
