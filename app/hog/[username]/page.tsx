@@ -55,7 +55,7 @@ export default async function HogProfile({
         <div className="absolute inset-0 bg-black/10" aria-hidden />
       </div>
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
         {/* Header card */}
         <div className="-mt-14 flex flex-col gap-5 rounded-2xl border border-black/5 bg-[var(--surface)] p-5 shadow-sm sm:flex-row sm:items-center dark:border-white/10">
           <HogAvatar
