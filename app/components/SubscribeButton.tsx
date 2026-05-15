@@ -27,15 +27,11 @@ export function SubscribeButton({
   }
 
   function handleSubscribe() {
-    try {
-      const result = subscribe(hogUsername, price);
-      if (result.success) {
-        setMessage({ text: `Subscribed to ${hogDisplayName}!`, isError: false });
-      } else {
-        setMessage({ text: result.error!, isError: true });
-      }
-    } catch (err) {
-      setMessage({ text: String((err as Error).message || err), isError: true });
+    const result = subscribe(hogUsername, price);
+    if (result.success) {
+      setMessage({ text: `Subscribed to ${hogDisplayName}!`, isError: false });
+    } else {
+      setMessage({ text: result.error!, isError: true });
     }
   }
 
