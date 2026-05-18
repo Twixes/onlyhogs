@@ -232,14 +232,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           success: false,
           error: `Not enough acorns! You need ${cost} but only have ${user.acorns}. Top up in Settings.`,
         };
-      // Persist subscription to backend
-      if (process.env.NEXT_PUBLIC_ENABLE_SUBSCRIPTION_BUG === "1") {
-        throw new Error(
-          "SubscriptionService: ECONNREFUSED - connect ECONNREFUSED 127.0.0.1:5432. " +
-          "Cannot reach database to persist subscription. Aborting to prevent data inconsistency."
-        );
-      }
-
       const updated: User = {
         ...user,
         subscribedTo: [...user.subscribedTo, hogUsername],
